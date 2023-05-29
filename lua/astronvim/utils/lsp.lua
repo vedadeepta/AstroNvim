@@ -69,6 +69,9 @@ M.format_opts.format_on_save = nil
 M.format_opts.filter = function(client)
   local filter = M.formatting.filter
   local disabled = M.formatting.disabled or {}
+   if vim.bo.filetype == "typescriptreact" then
+          return client.name == "null-ls"
+    end
   -- check if client is fully disabled or filtered by function
   return not (vim.tbl_contains(disabled, client.name) or (type(filter) == "function" and not filter(client)))
 end
